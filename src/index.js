@@ -22,6 +22,7 @@ function search(event) {
         document.querySelector("#current-city").textContent = city;
         document.querySelector(".current-temperature-value").textContent =
           Math.round(temperature.current);
+        document.querySelector('img.current-temperature-icon').src = condition.icon_url;
         document.querySelector(
           "p.current-details"
         ).innerHTML = `<span id="current-date">${formatDate(
