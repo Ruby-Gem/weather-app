@@ -26,7 +26,7 @@ function search(event) {
         document.querySelector(
           "p.current-details"
         ).innerHTML = `<span id="current-date">${formatDate(
-          new Date()
+          new Date(res.data.time)
         )}</span>, ${condition.description} <br/>Humidity<strong> ${
           temperature.humidity
         }%</strong>, Wind: <strong>${wind.speed} km/h</strong>`;
