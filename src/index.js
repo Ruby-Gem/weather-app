@@ -26,45 +26,46 @@ function search(event) {
         document.querySelector(
           "p.current-details"
         ).innerHTML = `<span id="current-date">${formatDate(
-          new Date(res.data.time)
+          new Date(res.data.time * 1000), // Unix timestamp in ms
         )}</span>, ${condition.description} <br/>Humidity<strong> ${
           temperature.humidity
         }%</strong>, Wind: <strong>${wind.speed} km/h</strong>`;
       } catch (err) {
-        console.error(err.mesage);
+        console.error(err.message);
       }
     })
     .catch((error) => {
       console.error("Error fetching the weather data:", error);
+      alert("Unable to fetch weather data. Please try again.");
     });
 }
 
 function formatDate(date) {
-  let minutes = date.getMinutes();
-  let hours = date.getHours();
-  let day = date.getDay();
+    let minutes = date.getMinutes();
+    let hours = date.getHours();
+    let day = date.getDay();
 
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+
+    if (hours < 10) {
+      hours = `0${hours}`;
+    }
+
+    let days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    let formattedDay = days[day];
+    return `${formattedDay} ${hours}:${minutes}`;
   }
-
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  let formattedDay = days[day];
-  return `${formattedDay} ${hours}:${minutes}`;
-}
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
